@@ -5,6 +5,7 @@ LIBFT=libft/libft.a
 LFT= -Llibft -lft
 DOBJS= objs
 DSRCS= srcs
+HEADER=includes/minishell.h
 
 SRCS_FILES= main #new#
 
@@ -19,10 +20,10 @@ $(DOBJS):
 $(LIBFT):
 	make -C libft
 
-$(OBJS): $(DOBJS)/%.o: $(DSRCS)/%.c
+$(OBJS): $(DOBJS)/%.o: $(DSRCS)/%.c $(HEADER)
 	$(GCC) $(INCLUDES) -c $< -o $@
 
-$(NAME): $(LIBFT) $(DOBJS) $(OBJS)
+$(NAME): $(LIBFT) $(DOBJS) $(OBJS) $(HEADER)
 	$(GCC) -o $(NAME) $(OBJS) $(LFT)
 
 clean:

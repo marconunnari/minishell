@@ -1,0 +1,31 @@
+command
+parse command --> cmd args //ft_strchr
+if cmd in builtins
+	call_builtin
+else
+	call_extern
+
+call_builtin
+	call function
+
+call_extern
+	search for the command in path
+	execve in another process with args and env
+
+cd
+	access
+	chdir
+	env
+
+setenv
+	change env var
+
+unsetenv
+	remove env var
+
+env
+	search for the command in path
+	execve in another process with args and env
+
+echo
+	print args or env

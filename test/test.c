@@ -1,7 +1,9 @@
-#include <stdio.h>
+#include "../libft/includes/libft.h"
 
 int		main(int argc, char **argv)
 {
-	if (argc > 1)
-		printf("hello %s\n", argv[1]);
+	char *str = "  a  ";
+	char **arr = ft_strsplit(str, ' ');
+	while(*arr)
+		ft_printf("string: %s", *arr++);
 }

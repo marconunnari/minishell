@@ -7,7 +7,7 @@ DOBJS= objs
 DSRCS= srcs
 HEADER=includes/minishell.h
 
-SRCS_FILES= main #new#
+SRCS_FILES= main parsecmd #new#
 
 SRCS = $(addprefix $(DSRCS)/, $(addsuffix .c, $(SRCS_FILES)))
 OBJS = $(SRCS:$(DSRCS)/%.c=$(DOBJS)/%.o)

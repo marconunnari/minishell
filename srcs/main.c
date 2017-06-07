@@ -6,12 +6,13 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 19:11:04 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/06 21:27:00 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/07 20:25:30 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
 void	exec_cmd(char *cmd, char **env)
 {
 	pid_t	child_pid;
@@ -19,14 +20,23 @@ void	exec_cmd(char *cmd, char **env)
 	if ((child_pid = fork()) < 0)
 		ft_error("Fork error", 1);
 	else if (child_pid == 0)
-	{
-		char *argv[2];
-		argv[0] = "ls";
-		argv[1] = NULL;
 		execve("/bin/ls", argv, env);
-		ft_printfnl("Error executing %s", cmd);
-	}
 	waitpid(child_pid, 0, 0);
+}
+*/
+
+void	minishell(char *cmd, char **env)
+{
+	char	*prog;
+	char	**argv;
+
+	(void)env;
+	if (parsecmd(cmd, &prog, &argv))
+	{
+		ft_printfnl(prog);
+		while(*argv)
+			ft_printfnl("%s", *argv++);
+	}
 }
 
 int		main(int argc, char **argv, char **env)
@@ -37,7 +47,7 @@ int		main(int argc, char **argv, char **env)
 	ft_printf("minishell> ");
 	while (get_next_line(0, &cmd) > 0)
 	{
-		exec_cmd(cmd, env);
+		minishell(cmd, env);
 		ft_printf("minishell> ");
 	}
 	ft_printfnl("exit");

@@ -1,31 +1,31 @@
 command
 parse command --> cmd args //ft_strchr
 if cmd in builtins
-	call_builtin
+	builtin(argv, env);
 else
-	call_extern
+	extern(argv, env);
 
-call_builtin
-	call function
-
-call_extern
+extern(char **argv, char **env)
 	search for the command in path
-	execve in another process with args and env
+	execve in another process
+
+---------------------------
+
+echo
+	print args or env var
 
 cd
 	access
 	chdir
-	env
+	env pwd
 
 setenv
-	change env var
+	change env var in char **env
 
 unsetenv
-	remove env var
+	remove env var in char **env
 
 env
-	search for the command in path
-	execve in another process with args and env
-
-echo
-	print args or env
+	chang env
+	call extern
+----------------------------

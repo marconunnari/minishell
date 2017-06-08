@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 19:11:04 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/07 20:25:30 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/08 18:56:10 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ void	minishell(char *cmd, char **env)
 	(void)env;
 	if (parsecmd(cmd, &prog, &argv))
 	{
-		ft_printfnl(prog);
+/*		ft_printf("prog: %s\n", prog);
+		ft_putendl("argv:");
 		while(*argv)
 			ft_printfnl("%s", *argv++);
-	}
+*/	}
 }
 
 int		main(int argc, char **argv, char **env)

@@ -1,9 +1,8 @@
 #include "../libft/includes/libft.h"
+#include <stdio.h>
 
 int		main(int argc, char **argv)
 {
-	char *str = "  a  ";
-	char **arr = ft_strsplit(str, ' ');
-	while(*arr)
-		ft_printf("string: %s", *arr++);
+	while(*argv)
+		printf("string: %s\n", *argv++);
 }

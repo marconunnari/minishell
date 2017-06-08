@@ -12,56 +12,66 @@
 
 #include "minishell.h"
 
-char			is_quote(char c)
+static char	is_quote(char c)
 {
 	if (c == '\"' || c == '\'')
 		return (c);
 	return (0);
 }
 
-int				indexes(char *str, int *i, int *j)
+static int	missing(char c)
+{
+	ft_printfnl("Unmatched %c", c);
+	return (-1);
+}
+
+static void	get_quoted(char *str, char quot, char **ptr)
+{
+	char			*tmp;
+
+	tmp = ft_strsub(str, 0, ft_strchr(str, quot) - str);
+	ft_strcpy(*ptr, tmp);
+	*ptr += ft_strlen(tmp);
+	free(tmp);
+}
+
+static int	process_str(char **str, char *ptr)
 {
 	char			quot;
 
-	if ((quot = is_quote(str[*i])))
+	while (**str)
 	{
-		*i = *i + 1;
-		*j = *i;
-		while (str[*i] && str[*i] != quot)
-			*i = *i + 1;
-		if (str[*i] == '\0')
+		//ft_printfnl("debug %c", **str);
+		if ((quot = is_quote(**str)))
 		{
-			ft_putendl("Missing quote");
-			*i = 0;
-			return (0);
+			*str += 1;
+			if (!ft_strchr(*str, quot))
+				return (missing(quot));
+			else
+				get_quoted(*str, quot, &ptr);
+			*str = ft_strchr(*str, quot) + 1;
+			if (**str == ' ')
+				return (1);
+			else
+				continue;
 		}
-	}
-	else
-	{
-		*j = *i;
-		while (str[*i] && str[*i] != ' ')
-			*i = *i + 1;
+		if (**str == ' ')
+			return (1);
+		*ptr++ = **str;
+		*str += 1;
 	}
 	return (1);
 }
 
-int				get_next_tok(char *str, char **arg)
+int		get_next_tok(char **str, char **arg)
 {
-	static int		i;
-	int				j;
+	char			*ptr;
 
-	ft_putendl("debug");
-	while (str[i] && str[i] == ' ')
-		i++;
-	if (!str[i])
-	{
-		i = 0;
+	while (**str && **str == ' ')
+		*str += 1;
+	if (**str == '\0')
 		return (0);
-	}
-	j = 0;
-	if (!indexes(str, &i, &j))
-		return (-1);
-	*arg = ft_strsub(str, j, i - j);
-	i++;
-	return (1);
+	*arg = ft_strnew((ft_strlen(*str) + 1));
+	ptr = *arg;
+	return (process_str(str, ptr));
 }

@@ -19,14 +19,15 @@ int				parsecmd(char *cmd, char **prog, char ***argv)
 	int		ret;
 
 	(void)prog; (void)argv;
-	while ((ret = get_next_tok(cmd, &tok)) > 0)
-		ft_lstaddnew(&toks, tok, ft_strlen(tok));
+	toks = NULL;
+	while ((ret = get_next_tok(&cmd, &tok)) > 0)
+		ft_lstpushnew(&toks, tok, ft_strlen(tok) + 1);
+	if (ret == -1 || toks == NULL)
+		return (0);
 	while (toks)
 	{
-		ft_printfnl("tok: %s", (char*)toks->content);
+		ft_printfnl("tok: %s", toks->content);
 		toks = toks->next;
 	}
-	if (ret == -1)
-		return (0);
 	return (1);
 }

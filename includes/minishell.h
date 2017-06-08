@@ -6,5 +6,5 @@
 # include <sys/wait.h>
 
 int			parsecmd(char *cmd, char **prog, char ***argv);
-int			get_next_tok(char *str, char **arg);
+int			get_next_tok(char **str, char **arg);
 #endif

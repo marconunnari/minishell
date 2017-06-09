@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+clear
 if make
 then
 	./minishell

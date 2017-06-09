@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2017/06/09 14:31:16 by mnunnari          #+#    #+#              #
+#    Updated: 2017/06/09 16:46:06 by mnunnari         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME=minishell
 GCC=gcc -Wall -Wextra -Werror
 INCLUDES= -Iincludes -Ilibft/includes
@@ -7,7 +19,8 @@ DOBJS= objs
 DSRCS= srcs
 HEADER=includes/minishell.h
 
-SRCS_FILES= main parsecmd get_next_tok #new#
+SRCS_FILES= main parsecmd get_next_tok run_prog builtin builtins \
+			ms_find_prog ms_echo #new#
 
 SRCS = $(addprefix $(DSRCS)/, $(addsuffix .c, $(SRCS_FILES)))
 OBJS = $(SRCS:$(DSRCS)/%.c=$(DOBJS)/%.o)
@@ -17,13 +30,13 @@ all: $(NAME)
 $(DOBJS):
 	mkdir -p $(DOBJS)
 
-$(LIBFT):
+dolibft:
 	make -C libft
 
 $(OBJS): $(DOBJS)/%.o: $(DSRCS)/%.c $(HEADER)
 	$(GCC) $(INCLUDES) -c $< -o $@
 
-$(NAME): $(LIBFT) $(DOBJS) $(OBJS) $(HEADER)
+$(NAME): dolibft $(DOBJS) $(OBJS) $(HEADER)
 	$(GCC) -o $(NAME) $(OBJS) $(LFT)
 
 clean:

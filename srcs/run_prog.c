@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/09 09:24:57 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/09 16:22:55 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/10 18:47:17 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void			run_prog(char *prog, char **argv, char **env)
 {
 	t_builtin builtin = get_builtin(prog);
 	if (builtin)
-		builtin(ft_arrlen((void**)argv), argv, env);
+		builtin(ft_arrlen((void**)argv), argv, &env);
 	else
 		run_extern(prog, argv, env);
 }

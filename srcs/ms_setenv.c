@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ms_setenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/06 19:11:04 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/11 08:38:29 by mnunnari         ###   ########.fr       */
+/*   Created: 2017/06/11 05:45:55 by mnunnari          #+#    #+#             */
+/*   Updated: 2017/06/11 08:29:12 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**minishell(char *cmd, char **env)
+char			**ms_setenv(int argc, char **argv, char **env)
 {
-	char	*prog;
-	char	**argv;
-
-	if (parsecmd(cmd, &prog, &argv))
-		env = run_prog(prog, argv, env);
-	return (env);
-}
-
-int		main(int argc, char **argv, char **env)
-{
-	char	*cmd;
-
 	(void)argc;(void)argv;(void)env;
-	ft_printf("minishell> ");
-	while (get_next_line(0, &cmd) > 0)
-	{
-		env = minishell(cmd, env);
-		ft_printf("minishell> ");
-	}
-	ft_printfnl("exit");
+	if (argc == 1)
+		print_env(env);
+	else if (argc == 2)
+		env = set_envar(argv[1], "", env);
+	else if (argc == 3)
+		env = set_envar(argv[1], argv[2], env);
+	return (env);
 }

@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/09 13:40:13 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/10 18:46:39 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/11 08:30:20 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ t_builtin		get_builtin(char *prog)
 	return (ft_mapget_lst(lst, prog, (int (*)(void *, void *))ft_strequ));
 }
 
-int				ms_exit(int argc, char **argv, char ***env)
+char		**ms_exit(int argc, char **argv, char **env)
 {
 	(void)argc;(void)argv;(void)env;
 	if (argc == 1)
 		exit(0);
 	else
 		ft_printfnl("usage: exit");
-	return (0);
+	return (NULL);
 }

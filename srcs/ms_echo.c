@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/09 16:45:37 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/10 18:46:58 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/11 08:30:40 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,11 @@ int				is_newline(char **argv, int *i)
 
 void			print_var(char *var, char **env)
 {
-	int		varlen;
+	char	*value;
 
-	varlen = ft_strlen(var);
-	while (*env)
-	{
-		if (ft_strnequ(var, *env, varlen))
-			ft_printf("%s", &((*env)[varlen + 1]));
-		env++;
-	}
+	value = get_envar(var, env);
+	if (value != NULL)
+		ft_putstr(value);
 }
 
 void			print_args(char **argv, int i, char **env)
@@ -49,7 +45,7 @@ void			print_args(char **argv, int i, char **env)
 	}
 }
 
-int				ms_echo(int argc, char **argv, char ***env)
+char			**ms_echo(int argc, char **argv, char **env)
 {
 	int		newline;
 	int		i;
@@ -57,8 +53,8 @@ int				ms_echo(int argc, char **argv, char ***env)
 	(void)argc;
 	i = 1;
 	newline = is_newline(argv, &i);
-	print_args(argv, i, *env);
+	print_args(argv, i, env);
 	if (newline)
 		ft_putchar('\n');
-	return (0);
+	return (env);
 }

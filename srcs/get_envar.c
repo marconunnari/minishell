@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_envar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/06 19:11:04 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/11 08:38:29 by mnunnari         ###   ########.fr       */
+/*   Created: 2017/06/11 05:51:43 by mnunnari          #+#    #+#             */
+/*   Updated: 2017/06/11 05:54:53 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**minishell(char *cmd, char **env)
+char		*get_envar(char *var, char **env)
 {
-	char	*prog;
-	char	**argv;
+	int		varlen;
 
-	if (parsecmd(cmd, &prog, &argv))
-		env = run_prog(prog, argv, env);
-	return (env);
-}
-
-int		main(int argc, char **argv, char **env)
-{
-	char	*cmd;
-
-	(void)argc;(void)argv;(void)env;
-	ft_printf("minishell> ");
-	while (get_next_line(0, &cmd) > 0)
+	varlen = ft_strlen(var);
+	while (*env)
 	{
-		env = minishell(cmd, env);
-		ft_printf("minishell> ");
+		if (ft_strnequ(var, *env, varlen))
+			return (&((*env)[varlen + 1]));
+		env++;
 	}
-	ft_printfnl("exit");
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/11 05:45:55 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/11 08:29:12 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/11 09:33:10 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@ char			**ms_setenv(int argc, char **argv, char **env)
 		env = set_envar(argv[1], "", env);
 	else if (argc == 3)
 		env = set_envar(argv[1], argv[2], env);
+	else
+		ft_putendl("setenv: too many arguments");
 	return (env);
 }

@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/11 05:47:14 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/11 08:56:54 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/11 10:44:25 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,16 @@ static char			*get_path(int argc, char **argv, char **env, char *prev)
 	}
 	if (argc == 1 || ft_strequ(argv[1], "~"))
 		return (get_envar("HOME", env));
+	if (argv[1][0] == '$' && argv[1][1] != '\0')
+	{
+	}
 	if (ft_strequ(argv[1], "-"))
 	{
 		if (prev == NULL)
 			ft_putendl("cd: no previous directory");
 		else
 			ft_putendl(prev);
-		return (prev);
+		return (ft_strdup(prev));
 	}
 	return (argv[1]);
 }
@@ -67,9 +70,13 @@ char			**ms_cd(int argc, char **argv, char **env)
 		return (env);
 	if (check_dir(path))
 	{
-		chdir(path);
-		env = set_envar("PWD", getcwd(path, MAXPATHLEN), env);
-		env = set_envar("OLDPWD", prev, env);
+		if (chdir(path) != 0)
+			ft_putendl("cd: unable to change directory");
+		else
+		{
+			env = set_envar("PWD", getcwd(path, MAXPATHLEN), env);
+			env = set_envar("OLDPWD", prev, env);
+		}
 	}
 	return (env);
 }

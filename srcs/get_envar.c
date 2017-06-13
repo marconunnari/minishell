@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/11 05:51:43 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/11 10:02:15 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/13 20:42:06 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,16 @@
 char		*get_envar(char *var, char **env)
 {
 	int		varlen;
+	char	*varname;
 
 	varlen = ft_strlen(var);
 	while (*env)
 	{
-		if (ft_strnequ(var, *env, ft_strchr(*env, '=') - *env))
+		varname = ft_strsub(*env, 0, ft_strchr(*env, '=') - *env);
+		if (ft_strequ(var, varname))
 			return (&((*env)[varlen + 1]));
 		env++;
+		free(varname);
 	}
 	return (NULL);
 }

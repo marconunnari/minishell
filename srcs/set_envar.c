@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/11 07:58:59 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/11 09:45:06 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/13 20:49:35 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,21 @@ char			**delete_envar(char *var, char **env)
 	size_t		oldlen;
 	size_t		i;
 	char		**newenv;
+	char		*varname;
 
 	oldlen = ft_arrlen((void**)env);
 	newenv = (char**)malloc(sizeof(char*) * (oldlen + 1));
 	i = 0;
 	while (*env)
 	{
-		if (!ft_strnequ(var, *env, ft_strchr(*env, '=') - *env))
+		varname = ft_strsub(*env, 0, ft_strchr(*env, '=') - *env);
+		if (!ft_strequ(var, varname))
 		{
 			newenv[i] = ft_strdup(*env);
 			i++;
 		}
 		env++;
+		free(varname);
 	}
 	newenv[i] = NULL;
 	return (newenv);
@@ -40,6 +43,7 @@ char			**update_envar(char *var, char *val, char **env)
 	size_t		i;
 	char		**newenv;
 	char		*newvar;
+	char		*varname;
 
 	oldlen = ft_arrlen((void**)env);
 	newenv = (char**)malloc(sizeof(char*) * (oldlen + 1));
@@ -50,11 +54,13 @@ char			**update_envar(char *var, char *val, char **env)
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strnequ(var, env[i], ft_strchr(env[i], '=') - env[i]))
+		varname = ft_strsub(env[i], 0, ft_strchr(*env, '=') - env[i]);
+		if (ft_strequ(var, varname))
 			newenv[i] = newvar;
 		else
 			newenv[i] = ft_strdup(env[i]);
 		i++;
+		free(varname);
 	}
 	newenv[i] = NULL;
 	return (newenv);

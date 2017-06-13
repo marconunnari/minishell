@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 17:30:56 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/09 14:06:01 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/13 22:07:28 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void			freetok(void *c, size_t s)
 	free(c);
 }
 
-int				parsecmd(char *cmd, char **prog, char ***argv)
+int				parsecmd(char *cmd, char **prog, char ***argv, char **env)
 {
 	char	*tok;
 	t_list	*toks;
@@ -27,7 +27,7 @@ int				parsecmd(char *cmd, char **prog, char ***argv)
 
 	(void)prog; (void)argv;
 	toks = NULL;
-	while ((n = get_next_tok(&cmd, &tok)) > 0)
+	while ((n = get_next_tok(&cmd, &tok, env)) > 0)
 		ft_lstpushnew(&toks, tok, ft_strlen(tok) + 1);
 	if (n == -1 || toks == NULL)
 		return (0);

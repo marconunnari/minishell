@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 19:11:04 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/11 08:38:29 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/13 22:07:37 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**minishell(char *cmd, char **env)
 	char	*prog;
 	char	**argv;
 
-	if (parsecmd(cmd, &prog, &argv))
+	if (parsecmd(cmd, &prog, &argv, env))
 		env = run_prog(prog, argv, env);
 	return (env);
 }

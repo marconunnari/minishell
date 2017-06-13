@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 18:02:30 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/08 19:01:18 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/13 22:50:37 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,46 @@ static int	missing(char c)
 	return (-1);
 }
 
-static void	get_quoted(char *str, char quot, char **ptr)
+static void	get_quoted(char *str, char quot, char **arg, int *i, char **env)
 {
 	char			*tmp;
+	char			*var;
+	char			*newarg;
 
 	tmp = ft_strsub(str, 0, ft_strchr(str, quot) - str);
-	ft_strcpy(*ptr, tmp);
-	*ptr += ft_strlen(tmp);
+	if (quot == '\"' && tmp[0] == '$' && tmp[1])
+	{
+		var = get_envar(&tmp[1], env);
+		newarg = ft_strnew(ft_strlen(*arg) + ft_strlen(var) + ft_strlen(str) + 1);
+		ft_strcpy(newarg, *arg);
+		ft_strcpy(&newarg[ft_strlen(*arg)], var);
+		free(*arg);
+		*arg = newarg;
+		*i += ft_strlen(var);
+	}
+	else
+	{
+		ft_strcpy(&(arg[0][*i]), tmp);
+		*i += ft_strlen(tmp);
+	}
 	free(tmp);
 }
 
-static int	process_str(char **str, char *ptr)
+static int	process_str(char **str, char **arg, char **env)
 {
 	char			quot;
+	int				i;
 
+	i = 0;
 	while (**str)
 	{
-		//ft_printfnl("debug %c", **str);
 		if ((quot = is_quote(**str)))
 		{
 			*str += 1;
 			if (!ft_strchr(*str, quot))
 				return (missing(quot));
 			else
-				get_quoted(*str, quot, &ptr);
+				get_quoted(*str, quot, arg, &i, env);
 			*str = ft_strchr(*str, quot) + 1;
 			if (**str == ' ')
 				return (1);
@@ -57,21 +73,19 @@ static int	process_str(char **str, char *ptr)
 		}
 		if (**str == ' ')
 			return (1);
-		*ptr++ = **str;
+		arg[0][i++] = **str;
 		*str += 1;
 	}
 	return (1);
 }
 
-int		get_next_tok(char **str, char **arg)
+int		get_next_tok(char **str, char **arg, char **env)
 {
-	char			*ptr;
-
+	(void)env;
 	while (**str && **str == ' ')
 		*str += 1;
 	if (**str == '\0')
 		return (0);
 	*arg = ft_strnew((ft_strlen(*str) + 1));
-	ptr = *arg;
-	return (process_str(str, ptr));
+	return (process_str(str, arg, env));
 }

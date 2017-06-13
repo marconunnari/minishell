@@ -10,8 +10,8 @@
 
 typedef			char**(*t_builtin)(int, char**, char**);
 
-int				parsecmd(char *cmd, char **prog, char ***argv);
-int				get_next_tok(char **str, char **arg);
+int				parsecmd(char *cmd, char **prog, char ***argv, char **env);
+int				get_next_tok(char **str, char **arg, char **env);
 char			**run_prog(char *prog, char **argv, char **env);
 void			ms_find_prog(char **prog, char **env);
 

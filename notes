@@ -1,21 +1,48 @@
-abc abc"def 'ghi' "$HOME'uvz'  aaaa
+totok(char **tok, char *piece)
+{
+	char *tmp;
 
-take_string(char *ptr1, char *ptr2, char **tok, char **str)
-	*ptr2 = '\0';
-	*tok = ft_strjoin(*tok, *ptr1);
-	*str = ptr2 + 1;
+	tmp = *tok;
+	*tok = ft_strjoin(tmp, piece);
+	free(tmp);
+}
 
-process()
+take_string(char *ptr1, char *ptr2, char **env, char **str)
+{
+	if (ptr2)
+		*ptr2 = '\0';
+	else
+		ptr2 = ptr1 + ft_strlen - 1;
+	if (*ptr1 == '$' && env)
+		ptr1 = get_envvar(ptr1, env);
+	if (ptr2)
+		*str = ptr2 + 1;
+	return (ptr1);
+}
+
+int		process(char **str, char **tok, char **env)
+{
+	char	*ptr1
+	char	*ptr2
+
 	while (1)
-		find first quote
-		find first space
-		if the quote is after the space
-			break
-		if the quote is after the current position
-			take the string from the currpos to the first quot
-		if there isnt the matching quote
-			return missing
-		take the string from the first quote to the second
-		string = second quote + 1
-	take the string from currpos to space
-	str = space + 1
+	{
+		ptr1 = ft_strchrs(str, is_quote);
+		ptr2 = ft_strchar(str, ' ');
+		if (!ptr1 || ptr2 < ptr1)
+			break ;
+		if (ptr1 > *str)
+			totok(tok, take_string(*str, ptr1, env, str));
+		ptr2 = ft_strchrs(str, is_quote);
+		if (!ptr2 || (*ptr2 != *ptr1))
+			return (missing(*ptr1));
+		if (*ptr1 == '\'')
+			totok(tok, take_string(ptr1, ptr2, NULL, str));
+		else
+			totok(tok, take_string(ptr1, ptr2, env, str));
+	}
+	if (!ptr2)
+		ptr2 = ft_strchr('\0');
+	totok(tok, take_string(*str, ptr2, env, str));
+	return (1);
+}

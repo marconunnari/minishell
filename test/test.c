@@ -3,6 +3,9 @@
 
 int		main(int argc, char **argv)
 {
-	while(*argv)
-		printf("string: %s\n", *argv++);
+	char *boh = NULL;
+	char *bah;
+
+	bah = (boh || "hello");
+	printf("%s", boh);
 }

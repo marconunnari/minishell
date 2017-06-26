@@ -38,6 +38,7 @@ int				parsecmd(char *cmd, char **prog, char ***argv, char **env)
 	while (toks)
 	{
 		(*argv)[n++] = ft_strdup((char*)toks->content);
+		ft_printfnl("tok %s", (*argv)[n - 1]);
 		toks = toks->next;
 	}
 	(*argv)[n] = NULL;

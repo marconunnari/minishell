@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-/*
 static int	is_quote(char c)
 {
 	if (c == '\"' || c == '\'')
@@ -25,18 +24,9 @@ static int	missing(char c)
 	ft_printfnl("Unmatched %c", c);
 	return (-1);
 }
-*/
 
 static int	process_str(char **str, char **tok, char **env)
 {
-	char	*ptr;
-
-	(void)env;
-	if ((ptr = ft_strchr(*str, ' ')))
-		*ptr = '\0';
-	*tok = (*str);
-	*str += ft_strlen(*tok);
-	return (1);
 }
 
 int		get_next_tok(char **str, char **tok, char **env)

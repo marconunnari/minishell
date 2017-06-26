@@ -1,31 +1,21 @@
-command
-parse command --> cmd args //ft_strchr
-if cmd in builtins
-	builtin(argv, env);
-else
-	extern(argv, env);
+abc abc"def 'ghi' "$HOME'uvz'  aaaa
 
-extern(char **argv, char **env)
-	search for the command in path
-	execve in another process
+take_string(char *ptr1, char *ptr2, char **tok, char **str)
+	*ptr2 = '\0';
+	*tok = ft_strjoin(*tok, *ptr1);
+	*str = ptr2 + 1;
 
----------------------------
-
-echo
-	print args or env var
-
-cd
-	access
-	chdir
-	env pwd
-
-setenv
-	change env var in char **env
-
-unsetenv
-	remove env var in char **env
-
-env
-	chang env
-	call extern
-----------------------------
+process()
+	while (1)
+		find first quote
+		find first space
+		if the quote is after the space
+			break
+		if the quote is after the current position
+			take the string from the currpos to the first quot
+		if there isnt the matching quote
+			return missing
+		take the string from the first quote to the second
+		string = second quote + 1
+	take the string from currpos to space
+	str = space + 1

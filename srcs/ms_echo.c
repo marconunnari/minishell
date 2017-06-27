@@ -22,23 +22,12 @@ int				is_newline(char **argv, int *i)
 	return (1);
 }
 
-void			print_var(char *var, char **env)
-{
-	char	*value;
-
-	value = get_envar(var, env);
-	if (value != NULL)
-		ft_putstr(value);
-}
-
 void			print_args(char **argv, int i, char **env)
 {
+	(void)env;
 	while (argv[i])
 	{
-		if (argv[i][0] == '$')
-			print_var(&(argv[i][1]), env);
-		else
-			ft_putstr(argv[i]);
+		ft_putstr(argv[i]);
 		i++;
 		if (argv[i])
 			ft_putchar(' ');

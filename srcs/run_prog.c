@@ -21,6 +21,7 @@ static void		ms_error(char *prog, char *msg)
 static void		check_prog(char *prog)
 {
 	int		r;
+	struct stat	s_stat;
 
 	r = access(prog, F_OK);
 	if (r != 0)
@@ -28,6 +29,11 @@ static void		check_prog(char *prog)
 	r = access(prog, X_OK);
 	if (r != 0)
 		ms_error(prog, "Permission denied");
+	stat(prog, &s_stat);
+	if ((s_stat.st_mode & S_IFMT) == S_IFDIR)
+		ms_error(prog, "Is a directory");
+
+
 }
 
 static void		exec_prog(char *prog, char **argv, char **env)

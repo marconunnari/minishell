@@ -41,24 +41,56 @@ static int	take_string(char *ptr1, char *ptr2, char **env, char **tok)
 {
 	char		*envar;
 	char		*ptr3;
+	char		*ptr4;
+	int		quoted;
 
 	if (ptr2)
+	{
+		quoted = *ptr2 == '\"' || *ptr2 == '\'';
 		*ptr2 = '\0';
-	else
-		ptr2 = ptr1 + ft_strlen(ptr1) - 1;
+	}
+	if (!quoted && *ptr1 == '~')
+	{
+		if (ptr1[1] == '\0')
+		{
+			envar = get_envar("HOME", env);
+			return (take_string(envar, NULL, NULL, tok));
+		}
+		if (ptr1[1] == '/')
+		{
+			envar = get_envar("HOME", env);
+			take_string(envar, NULL, NULL, tok);
+			return (take_string(ptr1 + 1, NULL, env, tok));
+		}
+	}
 	if (env && (ptr3 = ft_strchr(ptr1, '$')))
 	{
 		if (ptr3 > ptr1)
 			take_string(ptr1, ptr3, env, tok);
-		envar = get_envar(ptr3 + 1, env);
-		if (!envar)
-			ft_printfnl("%s: Undefined variable.", ptr3 + 1);
-		ptr1 = envar;
+		*ptr3 = '$';
+		if ((ptr4 = ft_strchr(ptr3, '/')))
+		{
+			if (!take_string(ptr3, ptr4, env, tok))
+				return (0);
+			*ptr4 = '/';
+			ptr1 = ptr4;
+		}
+		else
+		{
+			envar = get_envar(ptr3 + 1, env);
+			ptr1 = envar;
+		}
 	}
 	if (!ptr1)
 		return (0);
 	totok(tok, ptr1);
 	return (1);
+}
+
+static int	null_tok(char *ptr, char **str)
+{
+	*str = ptr + 1;
+	return (2);
 }
 
 static int	process_str(char **str, char **tok, char **env)
@@ -77,18 +109,18 @@ static int	process_str(char **str, char **tok, char **env)
 		if (ptr1 > *str)
 		{
 			if (!take_string(*str, ptr1, env, tok))
-				return (-1);
+				return (null_tok(ptr1, str));
 			*str = ptr1 + 1;
 		}
 		ptr2 = ft_strchr(ptr1 + 1, quot);
 		if (!ptr2 || (*ptr2 != quot))
 			return (missing(quot));
 		if (!take_string(ptr1 + 1, ptr2, *ptr1 == '\'' ? NULL : env, tok))
-			return (-1);
+			return (null_tok(ptr2, str));
 		*str = ptr2 + 1;
 	}
 	if (!take_string(*str, ptr2, env, tok))
-		return (-1);
+		return (null_tok(ptr2, str));
 	*str = ptr2 + 1;
 	return (1);
 }

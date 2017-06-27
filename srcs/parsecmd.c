@@ -28,7 +28,10 @@ int				parsecmd(char *cmd, char **prog, char ***argv, char **env)
 	(void)prog; (void)argv;
 	toks = NULL;
 	while ((n = get_next_tok(&cmd, &tok, env)) > 0)
-		ft_lstpushnew(&toks, tok, ft_strlen(tok) + 1);
+	{
+		if (n == 1)
+			ft_lstpushnew(&toks, tok, ft_strlen(tok) + 1);
+	}
 	if (n == -1 || toks == NULL)
 		return (0);
 	*prog = ft_strdup((char*)toks->content);
@@ -38,7 +41,7 @@ int				parsecmd(char *cmd, char **prog, char ***argv, char **env)
 	while (toks)
 	{
 		(*argv)[n++] = ft_strdup((char*)toks->content);
-		ft_printfnl("tok %s", (*argv)[n - 1]);
+		//ft_printfnl("tok %s", (*argv)[n - 1]);
 		toks = toks->next;
 	}
 	(*argv)[n] = NULL;

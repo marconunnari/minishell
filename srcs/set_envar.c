@@ -54,7 +54,7 @@ char			**update_envar(char *var, char *val, char **env)
 	i = 0;
 	while (env[i])
 	{
-		varname = ft_strsub(env[i], 0, ft_strchr(*env, '=') - env[i]);
+		varname = ft_strsub(env[i], 0, ft_strchr(env[i], '=') - env[i]);
 		if (ft_strequ(var, varname))
 			newenv[i] = newvar;
 		else

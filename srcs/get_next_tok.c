@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 18:02:30 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/26 22:56:12 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/28 15:34:45 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static int	take_string(char *ptr1, char *ptr2, char **env, char **tok)
 	char		*ptr4;
 	int		quoted;
 
+	quoted = 1;
 	if (ptr2)
 	{
 		quoted = *ptr2 == '\"' || *ptr2 == '\'';

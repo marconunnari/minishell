@@ -74,9 +74,9 @@ void			ms_find_prog(char **prog, char **env)
 		{
 			if (process_path(env[i], prog))
 				return ;
-			ft_printfnl("%s: Program not found", *prog);
 		}
 		i++;
 	}
+	ft_printfnl("%s: Program not found", *prog);
 	*prog = NULL;
 }

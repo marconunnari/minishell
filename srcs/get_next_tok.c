@@ -19,7 +19,7 @@ static int	is_quote(char c)
 
 static int	is_terminator(char c)
 {
-	return (c == ' ' || c == '\0');
+	return (c == ' ' || c == '\t' || c == '\0');
 }
 
 static int	missing(char c)
@@ -128,7 +128,7 @@ static int	process_str(char **str, char **tok, char **env)
 
 int			get_next_tok(char **str, char **tok, char **env)
 {
-	while (**str && **str == ' ')
+	while (**str && (**str == ' ' || **str == '\t') )
 		*str += 1;
 	if (**str == '\0')
 		return (0);

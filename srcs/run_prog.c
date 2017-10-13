@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/09 09:24:57 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/11 08:39:32 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/10/13 17:06:46 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static void		ms_error(char *prog, char *msg)
 
 static void		check_prog(char *prog)
 {
-	int		r;
-	struct stat	s_stat;
+	int				r;
+	struct stat		s_stat;
 
 	r = access(prog, F_OK);
 	if (r != 0)
@@ -32,8 +32,6 @@ static void		check_prog(char *prog)
 	stat(prog, &s_stat);
 	if ((s_stat.st_mode & S_IFMT) == S_IFDIR)
 		ms_error(prog, "Is a directory");
-
-
 }
 
 static void		exec_prog(char *prog, char **argv, char **env)
@@ -61,7 +59,9 @@ static void		run_extern(char *prog, char **argv, char **env)
 
 char			**run_prog(char *prog, char **argv, char **env)
 {
-	t_builtin builtin = get_builtin(prog);
+	t_builtin	builtin;
+
+	builtin = get_builtin(prog);
 	if (builtin)
 		env = builtin(ft_arrlen((void**)argv), argv, env);
 	else

@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 19:11:04 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/13 22:07:37 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/10/13 17:02:41 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int		main(int argc, char **argv, char **env)
 {
 	char	*cmd;
 
-	(void)argc;(void)argv;(void)env;
+	(void)argc;
+	(void)argv;
 	ft_printf("minishell> ");
 	while (get_next_line(0, &cmd) > 0)
 	{

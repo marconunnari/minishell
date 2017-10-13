@@ -11,6 +11,8 @@
 typedef			char**(*t_builtin)(int, char**, char**);
 
 int				parsecmd(char *cmd, char **prog, char ***argv, char **env);
+int				take_string(char *ptr1, char *ptr2, char **env, char **tok);
+int				process_str(char **str, char **tok, char **env);
 int				get_next_tok(char **str, char **arg, char **env);
 char			**run_prog(char *prog, char **argv, char **env);
 void			ms_find_prog(char **prog, char **env);

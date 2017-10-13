@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 17:30:56 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/13 22:07:28 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/10/13 17:15:20 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int				parsecmd(char *cmd, char **prog, char ***argv, char **env)
 	t_list	*tokscpy;
 	int		n;
 
-	(void)prog; (void)argv;
 	toks = NULL;
 	while ((n = get_next_tok(&cmd, &tok, env)) > 0)
 	{
@@ -41,7 +40,6 @@ int				parsecmd(char *cmd, char **prog, char ***argv, char **env)
 	while (toks)
 	{
 		(*argv)[n++] = ft_strdup((char*)toks->content);
-		//ft_printfnl("tok %s", (*argv)[n - 1]);
 		toks = toks->next;
 	}
 	(*argv)[n] = NULL;

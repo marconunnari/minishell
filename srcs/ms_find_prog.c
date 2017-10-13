@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/09 14:30:39 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/09 15:34:06 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/10/13 17:04:14 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int		process_path(char *path, char **prog)
 		{
 			prepend_path(dirs[i], prog);
 			found = 1;
-			break;
+			break ;
 		}
 		i++;
 	}

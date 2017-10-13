@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/11 05:47:14 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/11 10:44:25 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/10/13 17:04:40 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ static char			*get_path(int argc, char **argv, char **env, char *prev)
 	return (argv[1]);
 }
 
-static int		path_err(char *msg, char *path)
+static int			path_err(char *msg, char *path)
 {
 	ft_printfnl("cd: %s: %s", msg, path);
 	return (0);
 }
 
-int				check_dir(char *path)
+int					check_dir(char *path)
 {
 	int				res;
 	struct stat		info;
@@ -59,7 +59,7 @@ int				check_dir(char *path)
 	return (1);
 }
 
-char			**ms_cd(int argc, char **argv, char **env)
+char				**ms_cd(int argc, char **argv, char **env)
 {
 	char		*path;
 	static char	*prev;

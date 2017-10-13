@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/11 05:45:55 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/11 09:33:10 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/10/13 17:03:23 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char			**ms_setenv(int argc, char **argv, char **env)
 {
-	(void)argc;(void)argv;(void)env;
 	if (argc == 1)
 		print_env(env);
 	else if (argc == 2)
